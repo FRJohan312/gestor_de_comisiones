@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario</title>
+</head>
+<body>
+
+  <form id="addSellerForm" class="form" action="http://localhost/gestor_comisiones/guardar_vendedor.php" method="POST">
+    <h2>Agregar Vendedor</h2>
+  
+    <label for="identificacion">Número de Identificación:</label>
+    <input type="text" id="identificacion" name="identificacion" placeholder="Ej. 1234567890" required>
+  
+    <label for="nombre">Nombre Completo:</label>
+    <input type="text" id="nombre" name="nombre" placeholder="Ej. Juan Pérez" required>
+  
+    <label for="correo">Correo Electrónico:</label>
+    <input type="email" id="correo" name="correo" placeholder="Ej. juan.perez@empresa.com" required>
+  
+    <label for="telefono">Teléfono:</label>
+    <input type="tel" id="telefono" name="telefono" placeholder="Ej. +52 555-555-5555">
+  
+    <button type="submit" class="btn-primary">Guardar Vendedor</button>
+  </form>
+  
+  
+      <form id="addSaleForm" action="http://localhost/gestor_comisiones/guardar_venta.php" method="POST">
+          <h2>Registrar Venta</h2>
+
+          <!-- Seleccionar Vendedor -->
+          <label for="id_vendedor">Vendedor:</label>
+          <select id="id_vendedor" name="id_vendedor" required>
+              <option value="">Cargando vendedores...</option>
+          </select>
+  
+          <!-- Producto -->
+          <label for="producto">Producto:</label>
+          <input type="text" id="producto" name="producto" placeholder="Ej. Televisor" required>
+  
+          <!-- Cantidad -->
+          <label for="cantidad">Cantidad:</label>
+          <input type="number" id="cantidad" name="cantidad" min="1" required>
+  
+          <!-- Total -->
+          <label for="total">Total de la Venta:</label>
+          <input type="number" id="total" name="total" step="0.01" required>
+  
+          <!-- Fecha de Venta -->
+          <label for="fecha_venta">Fecha de Venta:</label>
+          <input type="date" id="fecha_venta" name="fecha_venta" required>
+  
+          <!-- Botón -->
+          <button type="submit">Registrar Venta</button>
+      </form>
+  
+      <script>
+          // Cargar vendedores dinámicamente
+          fetch('http://localhost/gestor_comisiones/cargar_vendedores.php')
+              .then(response => {
+                  if (!response.ok) {
+                      throw new Error('Error al cargar los vendedores');
+                  }
+                  return response.text();
+              })
+              .then(data => {
+                  document.getElementById('id_vendedor').innerHTML = data;
+              })
+              .catch(error => {
+                  console.error(error);
+                  document.getElementById('id_vendedor').innerHTML = '<option value="">Error al cargar vendedores</option>';
+              });
+      </script>
+</body>
+</html>
+
+
+
