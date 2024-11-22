@@ -7,7 +7,7 @@
 </head>
 <body>
 
-  <form id="addSellerForm" class="form" action="http://localhost/gestor_comisiones/guardar_vendedor.php" method="POST">
+  <form id="addSellerForm" class="form" action="http://localhost/gestor_comisiones/php/guardar_vendedor.php" method="POST">
     <h2>Agregar Vendedor</h2>
   
     <label for="identificacion">Número de Identificación:</label>
@@ -26,7 +26,7 @@
   </form>
   
   
-      <form id="addSaleForm" action="http://localhost/gestor_comisiones/guardar_venta.php" method="POST">
+      <form id="addSaleForm" action="http://localhost/gestor_comisiones/php/guardar_venta.php" method="POST">
           <h2>Registrar Venta</h2>
 
           <!-- Seleccionar Vendedor -->
@@ -57,7 +57,7 @@
   
       <script>
           // Cargar vendedores dinámicamente
-          fetch('http://localhost/gestor_comisiones/cargar_vendedores.php')
+          fetch('http://localhost/gestor_comisiones/php/cargar_vendedores.php')
               .then(response => {
                   if (!response.ok) {
                       throw new Error('Error al cargar los vendedores');
