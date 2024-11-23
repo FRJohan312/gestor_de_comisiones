@@ -38,7 +38,7 @@ try {
                 <th>Periodo</th>
                 <th>Ventas Totales</th>
                 <th>Metas Cumplidas</th>
-                <!-- <th>Bonificaciones Totales</th> -->
+                <th>Bonificaciones Totales</th>
                 <th>Porcentaje de Cumplimiento</th>
                 <th>Días Trabajados</th>
                 <th>Ausencias</th>
@@ -52,7 +52,7 @@ try {
                         <td><?= htmlspecialchars($reporte['periodo']) ?></td>
                         <td><?= number_format($reporte['ventas_totales'], 2) ?></td>
                         <td><?= htmlspecialchars($reporte['metas_cumplidas']) ?></td>
-                        <!-- <td><?= number_format($reporte['bonificaciones_totales'], 2) ?></td> -->
+                        <td><?= number_format($reporte['bonificaciones_totales'], 2) ?></td>
                         <td><?= number_format($reporte['porcentaje_cumplimiento'], 2) ?>%</td>
                         <td><?= htmlspecialchars($reporte['dias_trabajados']) ?></td>
                         <td><?= htmlspecialchars($reporte['ausencias']) ?></td>
