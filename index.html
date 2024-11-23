@@ -7,7 +7,7 @@
 </head>
 <body>
 
-  <form id="addSellerForm" class="form" action="http://localhost/gestor_comisiones/guardar_vendedor.php" method="POST">
+  <form id="addSellerForm" class="form" action="http://localhost/gestor_comisiones/php/guardar_vendedor.php" method="POST">
     <h2>Agregar Vendedor</h2>
   
     <label for="identificacion">Número de Identificación:</label>
@@ -26,7 +26,7 @@
   </form>
   
   
-      <form id="addSaleForm" action="http://localhost/gestor_comisiones/guardar_venta.php" method="POST">
+      <form id="addSaleForm" action="http://localhost/gestor_comisiones/php/guardar_venta.php" method="POST">
           <h2>Registrar Venta</h2>
 
           <!-- Seleccionar Vendedor -->
@@ -54,10 +54,84 @@
           <!-- Botón -->
           <button type="submit">Registrar Venta</button>
       </form>
-  
-      <script>
+
+      <form id="addGoalForm" action="http://localhost/gestor_comisiones/php/guardar_meta.php" method="POST">
+        <h2>Registrar Meta de Venta</h2>
+
+        <!-- Seleccionar Vendedor -->
+        <label for="id_vendedor">Vendedor:</label>
+        <select id="id_vendedor" name="id_vendedor" required>
+            <option value="">Cargando vendedores...</option>
+        </select>
+
+        <!-- Periodo -->
+        <label for="periodo">Periodo:</label>
+        <input type="text" id="periodo" name="periodo" placeholder="Ej. 2024-01" required>
+
+        <!-- Meta -->
+        <label for="meta">Monto de la Meta:</label>
+        <input type="number" id="meta" name="meta" step="0.01" required>
+
+        <!-- Botón -->
+        <button type="submit">Registrar Meta</button>
+    </form>
+
+    <form id="addBonusForm" action="http://localhost/gestor_comisiones/php/guardar_bonificaciones.php" method="POST">
+        <h2>Registrar Bonificación</h2>
+
+        <!-- Seleccionar Vendedor -->
+        <label for="id_vendedor">Vendedor:</label>
+        <select id="id_vendedor" name="id_vendedor" required>
+            <option value="">Cargando vendedores...</option>
+        </select>
+
+        <!-- Motivo -->
+        <label for="motivo">Motivo:</label>
+        <input type="text" id="motivo" name="motivo" placeholder="Ej. Bonificación por desempeño" required>
+
+        <!-- Monto -->
+        <label for="monto">Monto:</label>
+        <input type="number" id="monto" name="monto" step="0.01" required>
+
+        <!-- Fecha -->
+        <label for="fecha_asignacion">Fecha de Asignación:</label>
+        <input type="date" id="fecha_asignacion" name="fecha_asignacion" required>
+
+        <!-- Botón -->
+        <button type="submit">Registrar Bonificación</button>
+    </form>
+
+    <form id="attendanceForm" action="http://localhost/gestor_comisiones/php/guardar_asistencias.php" method="POST">
+        <h2>Registrar Asistencias</h2>
+
+        <!-- Seleccionar Vendedor -->
+        <label for="id_vendedor">Vendedor:</label>
+        <select id="id_vendedor" name="id_vendedor" required>
+            <option value="">Cargando vendedores...</option>
+        </select>
+
+        <!-- Fecha -->
+        <label for="fecha">Fecha:</label>
+        <input type="date" id="fecha" name="fecha" required>
+
+        <!-- Estado -->
+        <label for="estado">Estado:</label>
+        <select id="estado" name="estado" required>
+            <option value="Presente">Presente</option>
+            <option value="Ausente">Ausente</option>
+        </select>
+
+        <!-- Botón -->
+        <button type="submit">Registrar Asistencia</button>
+    </form>
+
+    <a href="http://localhost/gestor_comisiones/php/tabla_ventas.php">Tabla metas</a><br>
+    <a href="http://localhost/gestor_comisiones/php/ver_bonificaciones.php">Tabla bonificaciones</a><br>
+    <a href="http://localhost/gestor_comisiones/php/generar_reportes.php">Reporte de desempeño</a>
+    
+        <script>
           // Cargar vendedores dinámicamente
-          fetch('http://localhost/gestor_comisiones/cargar_vendedores.php')
+            fetch('http://localhost/gestor_comisiones/php/cargar_vendedores.php')
               .then(response => {
                   if (!response.ok) {
                       throw new Error('Error al cargar los vendedores');
@@ -65,11 +139,14 @@
                   return response.text();
               })
               .then(data => {
-                  document.getElementById('id_vendedor').innerHTML = data;
+                const elementos = document.querySelectorAll('#id_vendedor');
+                elementos.forEach((elemento) => {
+                    elemento.innerHTML = data;
+                });
               })
               .catch(error => {
                   console.error(error);
-                  document.getElementById('id_vendedor').innerHTML = '<option value="">Error al cargar vendedores</option>';
+                  elementos = '<option value="">Error al cargar vendedores</option>';
               });
       </script>
 </body>
