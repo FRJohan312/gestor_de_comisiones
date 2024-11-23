@@ -1,5 +1,5 @@
 <?php
-require 'config.php';
+require '../config.php';
 
 try {
     $sql = "SELECT m.identificacion, v.nombre, m.periodo, m.meta, m.ventas_actuales, m.cumplida
