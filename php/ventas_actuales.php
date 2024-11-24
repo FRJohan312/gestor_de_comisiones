@@ -2,8 +2,8 @@
 require 'config.php';
 
 try {
-    // Actualizar ventas_actuales y cumplida en todas las metas
-    $sql = "
+    // Actualizar ventas_actuales y el estado de cumplimiento de las metas
+    $sqlMetas = "
     UPDATE metas_ventas m
     SET ventas_actuales = (
         SELECT COALESCE(SUM(v.total), 0)
@@ -13,26 +13,33 @@ try {
     ),
     cumplida = ventas_actuales >= meta;
     ";
-    $stmt = $pdo->prepare($sql);
-    $stmt->execute();
+    $stmtMetas = $pdo->prepare($sqlMetas);
+    $stmtMetas->execute();
 
-    // Asignar bonificaciones automáticas si una meta fue cumplida
-    $bonificacionSql = "
+    // Asignar bonificaciones automáticamente a empleados que cumplieron su meta
+    $sqlBonificaciones = "
     INSERT INTO bonificaciones (identificacion, motivo, monto, fecha_asignacion)
-    SELECT m.identificacion, CONCAT('Bonificación por cumplimiento de meta en ', m.periodo), 500.00, CURDATE()
+    SELECT 
+        m.identificacion,
+        CONCAT('Bonificación por cumplimiento de meta en ', m.periodo),
+        300000,
+        CURDATE()
     FROM metas_ventas m
-    WHERE m.cumplida = 1 -- Cambiado a 1 para bases de datos que manejan TRUE como entero
+    WHERE m.cumplida = 1 -- Solo metas cumplidas
     AND NOT EXISTS (
-        SELECT 1 FROM bonificaciones b
+        SELECT 1 
+        FROM bonificaciones b
         WHERE b.identificacion = m.identificacion
-        AND b.motivo LIKE CONCAT('%', m.periodo, '%')
-    );
+        AND b.motivo = CONCAT('Bonificación por cumplimiento de meta en ', m.periodo)
+    )
     ";
-    $stmt = $pdo->prepare($bonificacionSql);
-    $stmt->execute();
+    $stmtBonificaciones = $pdo->prepare($sqlBonificaciones);
+    $stmtBonificaciones->execute();
 
-    echo "Metas actualizadas correctamente y bonificaciones asignadas.";
-    echo '<a href="ver_metas.php">Volver al reporte</a>';
+    echo "Metas actualizadas y bonificaciones asignadas correctamente.";
+    echo '<br><a href="http://localhost/gestor_comisiones/php/tablas/generar_reportes.php">Ver reportes de desempeño</a>';
+    echo '<br><a href="http://localhost/gestor_comisiones/php/tablas/tabla_ventas.php">Ver tabla de metas</a>';
+    echo '<br><a href="http://localhost/gestor_comisiones/php/tablas/ver_bonificaciones.php">Tabla bonificaciones</a>';
 } catch (PDOException $e) {
     die("Error al actualizar las metas: " . $e->getMessage());
 }
