@@ -11,7 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Encriptar la contraseña
-    // $contraseña_encriptada = password_hash($contraseña, PASSWORD_BCRYPT);
+    $contraseña_encriptada = password_hash($contrasena, PASSWORD_BCRYPT);
 
     try {
         // Insertar el usuario en la base de datos
@@ -20,8 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $resultado = $stmt->execute([
             ':nombre' => $nombre,
             ':correo' => $correo,
-            // ':contraseña' => $contraseña_encriptada
-            ':contrasena' => $contrasena
+            ':contrasena' => $contraseña_encriptada,
         ]);
         
         if (!$resultado) {

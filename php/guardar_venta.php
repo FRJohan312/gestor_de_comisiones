@@ -47,11 +47,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             ':identificacion' => $identificacion,
         ]);
 
-        echo "Venta registrada y metas actualizadas correctamente.";
+        echo "Venta registrada";
     } catch (PDOException $e) {
         die("Error al registrar la venta: " . $e->getMessage());
     }
 } else {
     die("Acceso no permitido.");
 }
+echo '<br><a href="./panel_de_usuario/venta_vendedor.html">Regresar</a>';
 ?>

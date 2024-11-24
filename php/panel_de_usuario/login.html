@@ -4,19 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Iniciar Sesión</title>
-    <link rel="stylesheet" href="./css/styles.css">
+    <link rel="stylesheet" href="../../css/styles.css">
 </head>
 <body>
+    
     <form action="http://localhost/gestor_comisiones/php/panel_de_usuario/login.php" method="POST">
         <h2>Iniciar Sesión</h2>
-        
+            
         <label for="correo">Correo Electrónico:</label>
         <input type="email" id="correo" name="correo" required>
-
-        <label for="password">Contraseña:</label>
-        <input type="password" id="password" name="password" required>
-
+        
+        <label for="contraseña">Contraseña:</label>
+        <input type="password" id="contraseña" name="contraseña" required>
+        
         <button type="submit">Iniciar Sesión</button>
     </form>
+
+    <a href="registro.html">Resgistrarse</a><br>
+
+
+        
 </body>
 </html>
