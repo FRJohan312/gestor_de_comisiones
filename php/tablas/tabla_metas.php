@@ -23,4 +23,5 @@ foreach ($metas as $meta) {
     echo "</tr>";
 }
 echo "</table>";
+echo '<a href="http://localhost/gestor_comisiones/php/gestor_de_datos.php">Regresar</a>';
 ?>
