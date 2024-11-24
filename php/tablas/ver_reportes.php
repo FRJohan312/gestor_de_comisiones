@@ -65,5 +65,6 @@ try {
             <?php endif; ?>
         </tbody>
     </table>
+    <a href="http://localhost/gestor_comisiones/php/gestor_de_datos.php">Regresar</a>
 </body>
 </html>
