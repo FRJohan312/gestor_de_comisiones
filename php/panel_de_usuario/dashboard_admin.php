@@ -1,14 +1,17 @@
 <?php
 session_start();
 
-// Verificar si el usuario tiene rol de administrador
+// Verificar que el usuario haya iniciado sesión y sea administrador
 if (!isset($_SESSION['usuario_rol']) || $_SESSION['usuario_rol'] !== 'admin') {
-    header("Location: login.html");
+    header("Location: ../login.html");
     exit;
 }
 
-echo "<h2>Bienvenido Administrador, " . htmlspecialchars($_SESSION['usuario_nombre']) . "</h2>";
+// Contenido del panel de administrador
+echo "Bienvenido, " . htmlspecialchars($_SESSION['usuario_nombre']) . ".";
 ?>
 
-<a href="admin.html">Administrar Empleados</a><br>
-<a href="logout.php">Cerrar Sesión</a>
+
+
+<br><a href="admin.html">Administrar Empleados</a>
+<br><a href="logout.php">Cerrar Sesión</a>

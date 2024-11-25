@@ -1,5 +1,5 @@
 <?php
-// Habilitar CORS
+// Habilitar CORS para evitar errores con el navegador
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: text/html; charset=UTF-8");
 
