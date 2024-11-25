@@ -18,8 +18,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $comision = $total * $tasa_comision;
 
         // Insertar la venta
-        $sql = "INSERT INTO ventas (identificacion, producto, cantidad, total, fecha_venta, comision)
-                VALUES (:identificacion, :producto, :cantidad, :total, :fecha_venta, :comision)";
+        $sql = "INSERT INTO ventas (identificacion, producto, cantidad, total, fecha_venta, comision, activo)
+                VALUES (:identificacion, :producto, :cantidad, :total, :fecha_venta, :comision, 1)";
         $stmt = $pdo->prepare($sql);
         $stmt->execute([
             ':identificacion' => $identificacion,
@@ -33,13 +33,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Actualizar las metas relacionadas con el vendedor y el periodo
         $updateSql = "
         UPDATE metas_ventas m
-        SET ventas_actuales = (
-            SELECT COALESCE(SUM(v.total), 0)
-            FROM ventas v
-            WHERE v.identificacion = m.identificacion
-            AND DATE_FORMAT(v.fecha_venta, '%Y-%m') = m.periodo
-        ),
-        cumplida = ventas_actuales >= meta
+        SET 
+            ventas_actuales = (
+                SELECT COALESCE(SUM(v.total), 0)
+                FROM ventas v
+                WHERE v.identificacion = m.identificacion
+                AND DATE_FORMAT(v.fecha_venta, '%Y-%m') = m.periodo
+                AND v.activo = 1 -- Solo contar ventas habilitadas
+            ),
+            cumplida = (
+                SELECT COALESCE(SUM(v.total), 0)
+                FROM ventas v
+                WHERE v.identificacion = m.identificacion
+                AND DATE_FORMAT(v.fecha_venta, '%Y-%m') = m.periodo
+                AND v.activo = 1
+            ) >= m.meta
         WHERE m.identificacion = :identificacion
         ";
         $updateStmt = $pdo->prepare($updateSql);
@@ -54,5 +62,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 } else {
     die("Acceso no permitido.");
 }
-echo '<br><a href="./panel_de_usuario/venta_vendedor.html">Regresar</a>';
 ?>
+
+        <!-- PRUEBA
+$rol = $_SESSION['usuario_rol'] ?? null;
+
+// Construir el enlace de regreso según el rol
+if ($rol === 'admin') {
+    $dashboard_url = "./panel_de_usuario/dashboard_admin.php";
+} elseif ($rol === 'empleado') {
+    $dashboard_url = "./panel_de_usuario/dashboard_empleado.php";
+} else {
+    $dashboard_url = "./panel_de_usuario/login.html"; // En caso de rol no identificado, redirigir al login
+}
+
+echo '<br><a href="' . htmlspecialchars($dashboard_url) . '">Regresar</a>'; -->
+

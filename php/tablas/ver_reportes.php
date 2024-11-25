@@ -2,12 +2,27 @@
 require '../config.php';
 
 try {
+    // Consulta para generar el reporte
     $sql = "
-    SELECT r.id, v.nombre AS vendedor, r.periodo, r.ventas_totales, r.metas_cumplidas, r.bonificaciones_totales, 
-           r.porcentaje_cumplimiento, r.dias_trabajados, r.ausencias
+    SELECT 
+        r.id, 
+        v.nombre AS vendedor, 
+        r.periodo, 
+        r.metas_cumplidas, 
+        r.porcentaje_cumplimiento, 
+        r.dias_trabajados, 
+        r.ausencias,
+        -- Calcular las ventas totales solo considerando las ventas activas
+        (
+            SELECT COALESCE(SUM(ventas.total), 0) 
+            FROM ventas 
+            WHERE ventas.identificacion = r.identificacion 
+            AND DATE_FORMAT(ventas.fecha_venta, '%Y-%m') = r.periodo
+            AND ventas.activo = 1 -- Solo ventas habilitadas (activas)
+        ) AS ventas_totales
     FROM reportes_desempeno r
     INNER JOIN vendedores v ON r.identificacion = v.identificacion
-    ORDER BY r.periodo, v.nombre
+    ORDER BY r.periodo, v.nombre;
     ";
     $stmt = $pdo->query($sql);
     $reportes = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -38,7 +53,6 @@ try {
                 <th>Periodo</th>
                 <th>Ventas Totales</th>
                 <th>Metas Cumplidas</th>
-                <th>Bonificaciones Totales</th>
                 <th>Porcentaje de Cumplimiento</th>
                 <th>Días Trabajados</th>
                 <th>Ausencias</th>
@@ -51,8 +65,7 @@ try {
                         <td><?= htmlspecialchars($reporte['vendedor']) ?></td>
                         <td><?= htmlspecialchars($reporte['periodo']) ?></td>
                         <td><?= number_format($reporte['ventas_totales'], 2) ?></td>
-                        <td><?= htmlspecialchars($reporte['metas_cumplidas']) ?></td>
-                        <td><?= number_format($reporte['bonificaciones_totales'], 2) ?></td>
+                        <td><?= htmlspecialchars($reporte['metas_cumplidas'] ? 'Sí' : 'No') ?></td>
                         <td><?= number_format($reporte['porcentaje_cumplimiento'], 2) ?>%</td>
                         <td><?= htmlspecialchars($reporte['dias_trabajados']) ?></td>
                         <td><?= htmlspecialchars($reporte['ausencias']) ?></td>
@@ -60,7 +73,7 @@ try {
                 <?php endforeach; ?>
             <?php else: ?>
                 <tr>
-                    <td colspan="8">No hay reportes disponibles.</td>
+                    <td colspan="7">No hay reportes disponibles.</td>
                 </tr>
             <?php endif; ?>
         </tbody>

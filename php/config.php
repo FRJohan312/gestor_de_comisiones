@@ -1,9 +1,8 @@
 <?php
-// Configuración de conexión a la base de datos
-$host = "localhost"; // Cambiar si tu base está en un servidor remoto
-$dbname = "gestor_de_comisiones"; // Nombre de tu base de datos
-$username = "root"; // Usuario de la base de datos
-$password = "Mvxf8BUuo9sq*bpQ"; // Contraseña de la base de datos
+$host = "localhost";
+$dbname = "gestor_de_comisiones";
+$username = "root";
+$password = "Mvxf8BUuo9sq*bpQ";
 
 try {
     // Crear la conexión
