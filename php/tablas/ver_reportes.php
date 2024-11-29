@@ -2,7 +2,7 @@
 require '../config.php';
 
 try {
-    // Consulta para generar el reporte
+    // Consulta para cargar el reporte incluyendo la comisión total
     $sql = "
     SELECT 
         r.id, 
@@ -12,7 +12,7 @@ try {
         r.porcentaje_cumplimiento, 
         r.dias_trabajados, 
         r.ausencias,
-        -- Calcular las ventas totales solo considerando las ventas activas
+        r.comision_total, -- Mostrar la comisión total
         (
             SELECT COALESCE(SUM(ventas.total), 0) 
             FROM ventas 
@@ -56,6 +56,7 @@ try {
                 <th>Porcentaje de Cumplimiento</th>
                 <th>Días Trabajados</th>
                 <th>Ausencias</th>
+                <th>Comisión Total</th> <!-- Nueva columna para la comisión -->
             </tr>
         </thead>
         <tbody>
@@ -69,11 +70,12 @@ try {
                         <td><?= number_format($reporte['porcentaje_cumplimiento'], 2) ?>%</td>
                         <td><?= htmlspecialchars($reporte['dias_trabajados']) ?></td>
                         <td><?= htmlspecialchars($reporte['ausencias']) ?></td>
+                        <td><?= number_format($reporte['comision_total'], 2) ?></td> <!-- Mostrar la comisión -->
                     </tr>
                 <?php endforeach; ?>
             <?php else: ?>
                 <tr>
-                    <td colspan="7">No hay reportes disponibles.</td>
+                    <td colspan="8">No hay reportes disponibles.</td>
                 </tr>
             <?php endif; ?>
         </tbody>
