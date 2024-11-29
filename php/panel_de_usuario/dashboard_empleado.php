@@ -12,5 +12,6 @@ echo "Bienvenido, " . htmlspecialchars($_SESSION['usuario_nombre']) . ".";
 ?>
 
 
-<a href="venta_vendedor.html">Registrar Ventas</a><br>
-<a href="logout.php">Cerrar Sesión</a>
+<br><a href="venta_vendedor.html">Registrar Ventas</a>
+<br><a href="http://localhost/gestor_comisiones/php/tablas/generar_reportes.php">Ver reportes</a>
+<br><a href="logout.php">Cerrar Sesión</a>
