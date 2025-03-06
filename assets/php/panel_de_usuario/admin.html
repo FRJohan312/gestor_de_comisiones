@@ -11,26 +11,26 @@
     <!-- Contenedor General -->
   <div class="form-container">
     <!-- Formulario para Agregar Vendedor -->
-    <form id="addSellerForm" action="http://localhost/gestor_comisiones/php/guardar_vendedor.php" method="POST">
+    <form id="addSellerForm" action="http://localhost/gestor_comisiones/assets/php/guardar_vendedor.php" method="POST">
         <h2>Agregar Vendedor</h2>
       
         <label for="identificacion">Número de Identificación:</label>
-        <input type="text" id="identificacion" name="identificacion" placeholder="Ej. 1234567890" required>
+        <input type="text" id="identificacion" name="identificacion" placeholder="Ej. 11172982790" required>
       
         <label for="nombre">Nombre Completo:</label>
-        <input type="text" id="nombre" name="nombre" placeholder="Ej. Juan Pérez" required>
+        <input type="text" id="nombre" name="nombre" placeholder="Ej. Johan Gomez" required>
       
         <label for="correo">Correo Electrónico:</label>
-        <input type="email" id="correo" name="correo" placeholder="Ej. juan.perez@empresa.com" required>
+        <input type="email" id="correo" name="correo" placeholder="Ej. johan.gomez@empresa.com" required>
       
         <label for="telefono">Teléfono:</label>
-        <input type="tel" id="telefono" name="telefono" placeholder="Ej. +52 555-555-5555">
+        <input type="tel" id="telefono" name="telefono" placeholder="Ej. 3182680198">
       
         <button type="submit" class="btn-primary">Guardar Vendedor</button>
     </form>
 
     <!-- Formulario para Registrar Venta -->
-    <form id="addSaleForm" action="http://localhost/gestor_comisiones/php/guardar_venta.php" method="POST">
+    <!-- <form id="addSaleForm" action="http://localhost/gestor_comisiones/php/guardar_venta.php" method="POST">
         <h2>Registrar Venta</h2>
 
         <label for="id_vendedor">Vendedor:</label>
@@ -39,7 +39,7 @@
         </select>
 
         <label for="producto">Producto:</label>
-        <input type="text" id="producto" name="producto" placeholder="Ej. Televisor" required>
+        <input type="text" id="producto" name="producto" placeholder="Ej. Tv" required>
 
         <label for="cantidad">Cantidad:</label>
         <input type="number" id="cantidad" name="cantidad" min="1" required>
@@ -51,10 +51,10 @@
         <input type="date" id="fecha_venta" name="fecha_venta" required>
 
         <button type="submit">Registrar Venta</button>
-    </form>
+    </form> -->
 
     <!-- Formulario para Registrar Meta de Venta -->
-    <form id="addGoalForm" action="http://localhost/gestor_comisiones/php/guardar_meta.php" method="POST">
+    <form id="addGoalForm" action="http://localhost/gestor_comisiones/assets/php/guardar_meta.php" method="POST">
         <h2>Registrar Meta de Venta</h2>
 
         <label for="id_vendedor">Vendedor:</label>
@@ -72,7 +72,7 @@
     </form>
 
     <!-- Formulario para Registrar Bonificación -->
-    <form id="addBonusForm" action="http://localhost/gestor_comisiones/php/guardar_bonificaciones.php" method="POST">
+    <form id="addBonusForm" action="http://localhost/gestor_comisiones/assets/php/guardar_bonificaciones.php" method="POST">
         <h2>Registrar Bonificación</h2>
 
         <label for="id_vendedor">Vendedor:</label>
@@ -93,7 +93,7 @@
     </form>
 
     <!-- Formulario para Registrar Asistencias -->
-    <form id="attendanceForm" action="http://localhost/gestor_comisiones/php/guardar_asistencias.php" method="POST">
+    <form id="attendanceForm" action="http://localhost/gestor_comisiones/assets/php/guardar_asistencias.php" method="POST">
         <h2>Registrar Asistencias</h2>
 
         <label for="id_vendedor">Vendedor:</label>
@@ -113,17 +113,17 @@
         <button type="submit">Registrar Asistencia</button>
     </form>
 
-    <a href="http://localhost/gestor_comisiones/php/gestor_de_datos.php">Actualizar datos</a><br>
-    <a href="http://localhost/gestor_comisiones/php/panel_de_usuario/admin_empleados.php">Gestionar vendedores</a><br>
-    <a href="http://localhost/gestor_comisiones/php/panel_de_usuario/admin_ventas.php">Gestionar ventas</a><br>
+    <a href="http://localhost/gestor_comisiones/assets/php/gestor_de_datos.php">Actualizar datos</a><br>
+    <a href="http://localhost/gestor_comisiones/assets/php/panel_de_usuario/admin_vendedores.php">Gestionar vendedores</a><br>
+    <a href="http://localhost/gestor_comisiones/assets/php/panel_de_usuario/admin_ventas.php">Gestionar ventas</a><br>
     <!-- <a href="http://localhost/gestor_comisiones/php/tablas/ver_bonificaciones.php">Tabla bonificaciones</a><br> -->
     <!-- <a href="http://localhost/gestor_comisiones/php/tablas/generar_reportes.php">Reporte de desempeño</a> -->
-    <a href="http://localhost/gestor_comisiones/php/panel_de_usuario/dashboard_admin.php">Regresar al menú</a><br>
+    <a href="http://localhost/gestor_comisiones/assets/php/panel_de_usuario/dashboard/dashboard_admin.php">Regresar al menú</a><br>
 </div>
 
 <script>
     // Cargar vendedores dinámicamente
-    fetch('http://localhost/gestor_comisiones/php/cargar_vendedores.php')
+    fetch('http://localhost/gestor_comisiones/assets/php/cargar_vendedores.php')
         .then(response => {
             if (!response.ok) {
                 throw new Error('Error al cargar los vendedores');

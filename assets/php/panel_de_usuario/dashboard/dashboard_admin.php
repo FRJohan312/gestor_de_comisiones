@@ -13,5 +13,5 @@ echo "Bienvenido, " . htmlspecialchars($_SESSION['usuario_nombre']) . ".";
 
 
 
-<br><a href="admin.html">Administrar Empleados</a>
+<br><a href="../admin.html">Administrar Empleados</a>
 <br><a href="logout.php">Cerrar Sesión</a>

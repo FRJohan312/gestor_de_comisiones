@@ -1,5 +1,5 @@
 <?php
-require '../config.php';
+require '../../config.php';
 session_start();
 
 // Verificar si se enviaron los datos del formulario
@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     try {
         // Consultar la base de datos para verificar el usuario
-        $sql = "SELECT id, nombre, contraseña, rol, activo FROM usuarios WHERE correo = :correo";
+        $sql = "SELECT identificacion, nombre, contraseña, rol, activo FROM usuarios WHERE correo = :correo";
         $stmt = $pdo->prepare($sql);
         $stmt->execute([':correo' => $correo]);
         $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -34,9 +34,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 // Redirigir al panel correspondiente según el rol
                 if ($usuario['rol'] === 'admin') {
-                    header("Location: ../panel_de_usuario/dashboard_admin.php");
+                    header("Location: ../../panel_de_usuario/dashboard/dashboard_admin.php");
                 } else {
-                    header("Location: ../panel_de_usuario/dashboard_empleado.php");
+                    header("Location: ../../panel_de_usuario/dashboard/dashboard_empleado.php");
                 }
                 exit;
             } else {

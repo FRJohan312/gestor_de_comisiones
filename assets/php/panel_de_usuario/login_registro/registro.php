@@ -1,5 +1,5 @@
 <?php
-require '../config.php'; // Conexión a la base de datos
+require '../../config.php'; // Conexión a la base de datos
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nombre = $_POST['nombre'] ?? '';
@@ -32,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         echo "Usuario registrado exitosamente.";
-        echo '<br><a href="http://localhost/gestor_comisiones/php/panel_de_usuario/login.html">Iniciar Sesión</a>';
+        echo '<br><a href="login.html">Iniciar Sesión</a>';
     } catch (PDOException $e) {
         if ($e->getCode() == 23000) { // Código para duplicados
             die("El correo o la identificación ya están registrados.");

@@ -11,10 +11,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (empty($identificacion) || empty($producto) || empty($cantidad) || empty($total) || empty($fecha_venta)) {
         die("Por favor, completa todos los campos.");
     }
-
     try {
         // Calcular la comisión
-        $tasa_comision = 0.1;
+        $tasa_comision = 0.05;
         $comision = $total * $tasa_comision;
 
         // Insertar la venta

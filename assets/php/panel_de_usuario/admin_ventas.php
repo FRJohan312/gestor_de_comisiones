@@ -9,7 +9,7 @@ if (!isset($_SESSION['usuario_rol']) || $_SESSION['usuario_rol'] !== 'admin') {
 }
 
 try {
-    $sql = "SELECT v.id, v.producto, v.cantidad, v.total, v.comision, v.fecha_venta, v.activo, ve.nombre AS vendedor
+    $sql = "SELECT v.id, v.producto, v.cantidad, v.total, v.comision, v.fecha_venta, ve.nombre AS vendedor
             FROM ventas v
             INNER JOIN vendedores ve ON v.identificacion = ve.identificacion";
     $stmt = $pdo->query($sql);
@@ -39,7 +39,6 @@ try {
                 <th>Comisión</th>
                 <th>Fecha</th>
                 <th>Vendedor</th>
-                <th>Estado</th>
                 <th>Acciones</th>
             </tr>
         </thead>
@@ -54,21 +53,22 @@ try {
                         <td><?= htmlspecialchars($venta['comision']) ?></td>
                         <td><?= htmlspecialchars($venta['fecha_venta']) ?></td>
                         <td><?= htmlspecialchars($venta['vendedor']) ?></td>
-                        <td><?= $venta['activo'] ? 'Activa' : 'Inactiva' ?></td>
                         <td>
-                            <a href="eliminar_venta.php?id=<?= $venta['id'] ?>&estado=<?= $venta['activo'] ? 0 : 1 ?>">
-                                <?= $venta['activo'] ? 'Inhabilitar' : 'Habilitar' ?>
-                            </a>
+                            <!-- Enlace para editar la venta -->
+                            <a href="editar_venta.php?id=<?= $venta['id'] ?>">Editar</a> |
+                            <!-- Enlace para eliminar la venta -->
+                            <a href="eliminar_venta.php?id=<?= $venta['id'] ?>" onclick="return confirm('¿Estás seguro de que deseas eliminar esta venta?');">Eliminar</a>
                         </td>
                     </tr>
                 <?php endforeach; ?>
             <?php else: ?>
                 <tr>
-                    <td colspan="9">No hay ventas registradas.</td>
+                    <td colspan="8">No hay ventas registradas.</td>
                 </tr>
             <?php endif; ?>
         </tbody>
     </table>
-    <a href="dashboard_admin.php">Volver al Panel</a>
+    <a href="./dashboard/dashboard_admin.php">Volver al Panel</a>
 </body>
 </html>
+

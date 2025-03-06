@@ -37,9 +37,9 @@ try {
     $stmtBonificaciones->execute();
 
     echo "Metas actualizadas y bonificaciones asignadas correctamente.";
-    echo '<br><a href="http://localhost/gestor_comisiones/php/tablas/generar_reportes.php">Ver reportes de desempeño</a>';
-    echo '<br><a href="http://localhost/gestor_comisiones/php/tablas/tabla_metas.php">Ver tabla de metas</a>';
-    echo '<br><a href="http://localhost/gestor_comisiones/php/tablas/ver_bonificaciones.php">Tabla bonificaciones</a>';
+    echo '<br><a href="http://localhost/gestor_comisiones/assets/php/tablas/generar_reportes.php">Ver reportes de desempeño</a>';
+    echo '<br><a href="http://localhost/gestor_comisiones/assets/php/tablas/tabla_metas.php">Ver tabla de metas</a>';
+    echo '<br><a href="http://localhost/gestor_comisiones/assets/php/tablas/ver_bonificaciones.php">Tabla bonificaciones</a>';
     echo '<br><a href="./panel_de_usuario/admin.html">Regresar</a>';
 } catch (PDOException $e) {
     die("Error al actualizar las metas: " . $e->getMessage());
